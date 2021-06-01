@@ -1,0 +1,33 @@
+@baseUrl = http://localhost:4000
+@validUserId = 60b1070381c3abbe79f23381
+
+### GET /users
+GET {{baseUrl}}/api/users
+
+### GET /api/users/:id
+GET {{baseUrl}}/api/users/{{validUserId}}
+
+### GET /api/users/2000 (should not be found)
+GET {{baseUrl}}/api/users/2000
+
+### POST /api/users
+POST http://localhost:4000/api/users
+Content-Type: application/json
+
+{
+  "name": "Max Mustermann",
+  "age": 42,
+  "email": "maxmustermann1979@gmx.de"
+}
+
+### PATCH /api/users/1
+PATCH {{baseUrl}}/api/users/{{validUserId}}
+Content-Type: application/json
+
+{
+  "name": "Jack Doe",
+  "email": "jack@doe.com"
+}
+
+### DELETE /api/users/1
+DELETE {{baseUrl}}/api/users/60b109bb4434b86563a163fb
