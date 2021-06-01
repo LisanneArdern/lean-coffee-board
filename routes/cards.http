@@ -1,10 +1,12 @@
 @baseUrl = http://localhost:4000
+@validCardId = 60b107ccdc86c562af9908f9
+@validUserId = 60b1070381c3abbe79f23381
 
 ### GET all cards
 GET {{baseUrl}}/api/cards
 
 ### GET a single card
-GET {{baseUrl}}/api/cards/1
+GET {{baseUrl}}/api/cards/{{validCardId}}
 
 ### GET a non existing card (404)
 GET {{baseUrl}}/api/cards/2000
@@ -15,12 +17,12 @@ Content-Type: application/json
 
 {
   "text": "Sample question",
-  "author": "Max Mustermann",
+  "author": "{{validUserId}}",
   "votes": 2
 }
 
 ### PATCH a single card
-PATCH {{baseUrl}}/api/cards/1
+PATCH {{baseUrl}}/api/cards/{{validCardId}}
 Content-Type: application/json
 
 {
@@ -28,4 +30,4 @@ Content-Type: application/json
 }
 
 ### DELETE a single card
-DELETE {{baseUrl}}/api/cards/1
+DELETE {{baseUrl}}/api/cards/{{validCardId}}

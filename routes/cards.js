@@ -1,52 +1,29 @@
 const express = require('express')
-const uuidv4 = require('uuid').v4
 const router = express.Router()
+const User = require('../models/Card')
 
-let cards = [
-  {
-    text: 'What is MongoDB?',
-    author: 'Jane Doe',
-    votes: 33,
-    id: '0',
-  },
-  {
-    text: 'What are you doing on the weekend?',
-    author: 'John Doe',
-    votes: 5,
-    id: '1',
-  },
-]
-
-router.get('/', (req, res, next) => {
-  res.json(cards)
+router.get('/', async (req, res, next) => {
+  res.json(await Card.find().populate('author', 'name -_id'))
 })
 
-router.get('/:id', (req, res, next) => {
+router.get('/:id', async (req, res, next) => {
   const { id } = req.params
-  const foundCard = cards.find(card => card.id === id)
-  foundCard ? res.json(foundCard) : next()
+  res.json(await Card.findById(id).populate('author', 'name -_id'))
 })
 
-router.post('/', (req, res, next) => {
-  const newCard = { ...req.body, id: uuidv4() }
-  users.push(newCard)
-  res.status(201).json(newCard)
+router.post('/', async (req, res, next) => {
+  res.status(201).json(await Card.create(req.body))
 })
 
-router.patch('/:id', (req, res, next) => {
+router.patch('/:id', async (req, res, next) => {
   const { id } = req.params
-
-  const index = cards.findIndex(card => card.id === id)
-  const user = cards[index]
-  const updatedCards = { ...card, ...req.body }
-  cards.splice(index, 1, updatedCard)
-  res.json(updatedCard)
+  res.json(await Card.findByIdAndUpdate(id, req.body, { new: true }))
 })
 
 router.delete('/:id', (req, res, next) => {
   const { id } = req.params
-  users = cards.filter(card => card.id !== id)
-  res.sendStatus(204)
+
+  res.status(204).json(Card.findByIdAndDelete(id))
 })
 
 module.exports = router
