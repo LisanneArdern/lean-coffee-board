@@ -21,6 +21,7 @@
     "express": "^5.0.0-alpha.8",
     "inquirer": "^8.1.0",
     "mongodb": "^3.6.9",
+    "mongoose": "^5.12.12",
     "uuid": "^8.3.2"
   }
 }
